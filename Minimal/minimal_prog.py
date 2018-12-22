@@ -88,8 +88,8 @@ def main():
     # main loop
     while running:
 
-        clock.tick(24)
-        GPIO.setup(11,GPIO.IN)
+        clock.tick(1)
+        #GPIO.setup(11,GPIO.IN)
         distance = getSonar()
         print ("The distance is : %.2f cm"%(distance))
         
