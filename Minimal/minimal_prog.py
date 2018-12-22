@@ -39,7 +39,7 @@ def setup():
 
 # define a main function
 def main():
-    GPIO.setup(11,GPIO.IN)
+
     # initialize the pygame module
     pygame.init()
     clock = pygame.time.Clock()
@@ -89,7 +89,7 @@ def main():
     while running:
 
         clock.tick(24)
-
+        GPIO.setup(11,GPIO.IN)
         distance = getSonar()
         print ("The distance is : %.2f cm"%(distance))
         
@@ -117,4 +117,5 @@ def main():
 # (if you import this as a module then nothing is executed)
 if __name__=="__main__":
     # call the main function
+    setup()
     main()
