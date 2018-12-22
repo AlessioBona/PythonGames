@@ -2,12 +2,47 @@
 
 # import the pygame module, so you can use it
 import pygame
+import RPi.GPIO as GPIO
+import time
+
+trigPin = 16
+echoPin = 18
+MAX_DISTANCE = 220 #define the maximum measured distance
+timeOut = MAX_DISTANCE*60 #calculate timeout according to the maximum measured distance
+
+def pulseIn(pin,level,timeOut): # function pulseIn: obtain pulse time of a pin
+    t0 = time.time()
+    while(GPIO.input(pin) != level):
+        if((time.time() - t0) > timeOut*0.000001):
+            return 0;
+    t0 = time.time()
+    while(GPIO.input(pin) == level):
+        if((time.time() - t0) > timeOut*0.000001):
+            return 0;
+
+        pulseTime = (time.time() - t0)*1000000
+        return pulseTime
+    
+def getSonar(): #get the measurement results of ultrasonic module,with unit: cm
+    GPIO.output(trigPin,GPIO.HIGH) #make trigPin send 10us high level
+    time.sleep(0.00001) #10us
+    GPIO.output(trigPin,GPIO.LOW)
+    pingTime = pulseIn(echoPin,GPIO.HIGH,timeOut) #read plus time of echoPin
+    distance = pingTime * 340.0 / 2.0 / 10000.0 # the sound speed is 340m/s, and calculate distance
+    return distance
+
+def setup():
+    print ('Program is starting...')
+    GPIO.setmode(GPIO.BOARD) #numbers GPIOs by physical location
+    GPIO.setup(trigPin, GPIO.OUT) #
+    GPIO.setup(echoPin, GPIO.IN) #
 
 # define a main function
 def main():
-    
+    GPIO.setup(11,GPIO.IN)
     # initialize the pygame module
     pygame.init()
+    clock = pygame.time.Clock()
     
     # load and set the logo
     logo = pygame.image.load("logo32x32.png")
@@ -52,18 +87,25 @@ def main():
     
     # main loop
     while running:
+
+        clock.tick(24)
+
+        distance = getSonar()
+        print ("The distance is : %.2f cm"%(distance))
+        
         # event handling, gets all event from the eventqueue
         for event in pygame.event.get():
             # only do something if the event if of type QUIT
             if event.type == pygame.QUIT:
                 # change the value to False, to exit the main loop
+                GPIO.cleanup()
                 running = False
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_DOWN:
-                    rocketY += rocketMove
+                    rocket.y += rocketMove
                 if event.key == pygame.K_UP:
-                    rocketY -= rocketMove
+                    rocket.y -= rocketMove
 
         rocket.move()
         drawScene()
