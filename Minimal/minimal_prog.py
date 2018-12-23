@@ -118,4 +118,7 @@ def main():
 if __name__=="__main__":
     # call the main function
     setup()
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        GPIO.cleanup()
