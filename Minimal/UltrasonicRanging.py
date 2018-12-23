@@ -5,6 +5,7 @@
 # Author      : freenove
 # modification: 2018/08/03
 ########################################################################
+import pygame
 import RPi.GPIO as GPIO
 import time
 

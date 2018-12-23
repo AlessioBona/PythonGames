@@ -88,7 +88,7 @@ def main():
     # main loop
     while running:
 
-        clock.tick(1)
+        #clock.tick(1)
         #GPIO.setup(11,GPIO.IN)
         distance = getSonar()
         print ("The distance is : %.2f cm"%(distance))
@@ -107,8 +107,9 @@ def main():
                 if event.key == pygame.K_UP:
                     rocket.y -= rocketMove
 
-        rocket.move()
-        drawScene()
+        #rocket.move()
+        #drawScene()
+        time.sleep(1)
 
 
     
