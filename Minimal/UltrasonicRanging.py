@@ -51,10 +51,7 @@ def getSonar():     #get the measurement results of ultrasonic module,with unit:
     distance = pingTime * 340.0 / 2.0 / 10000.0     # the sound speed is 340m/s, and calculate distance
     return distance
 
-def drawScene():
-    screen.fill((0, 0, 0))
-    screen.blit(rocket.image, (rocket.x -35, rocket.y -35))
-    pygame.display.update()
+
     
 def setup():
     pygame.init()
@@ -78,12 +75,17 @@ def loop():
 
     rocket = Rocket()
 
+    def drawScene():
+        screen.fill((0, 0, 0))
+        screen.blit(rocket.image, (rocket.x -35, rocket.y -35))
+        pygame.display.update()
 
     
     while(True):
         distance = getSonar()
         print ("The distance is : %.2f cm"%(distance))
         drawScene()
+        rocket.Move()
         time.sleep(1)
         
 if __name__ == '__main__':     #program start from here
