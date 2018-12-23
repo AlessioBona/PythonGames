@@ -23,7 +23,7 @@ class Rocket:
             
         def move(self, distance):
             inputHigh = distance
-            if distance > 28
+            if distance > 28:
                 inputHigh = 55
             if distance < 3:
                 inputtHigh = 5
