@@ -25,10 +25,12 @@ class Rocket:
             inputHigh = distance
             if distance > 40:
                 return
+            if distance < 2:
+                return
             if distance > 28:
                 inputHigh = 28
             if distance < 3:
-                inputHigh = 5
+                inputHigh = 3
             if self.y < 600 - 50 - (inputHigh-3)*20 - 20:
                 self.y += 12
             elif self.y > 600 - 50 - (inputHigh-3)*20 + 20:
