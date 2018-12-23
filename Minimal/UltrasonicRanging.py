@@ -36,6 +36,7 @@ def getSonar():     #get the measurement results of ultrasonic module,with unit:
     
 def setup():
     pygame.init()
+    clock = pygame.time.Clock()
     print ('Program is starting...')
     GPIO.setmode(GPIO.BOARD)       #numbers GPIOs by physical location
     GPIO.setup(trigPin, GPIO.OUT)   #
@@ -43,6 +44,15 @@ def setup():
 
 def loop():
     GPIO.setup(11,GPIO.IN)
+
+    # load and set the logo
+    logo = pygame.image.load("logo32x32.png")
+    pygame.display.set_icon(logo)
+    pygame.display.set_caption("minimal program")
+    
+    # create a surface on screen that has the size of 240 x 180
+    screen = pygame.display.set_mode((800,600))
+    
     while(True):
         distance = getSonar()
         print ("The distance is : %.2f cm"%(distance))
