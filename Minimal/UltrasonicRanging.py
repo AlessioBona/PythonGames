@@ -26,8 +26,12 @@ class Rocket:
             if distance > 28:
                 inputHigh = 55
             if distance < 3:
-                inputtHigh = 5
-            self.y = 600 - 50 - (inputHigh-3)*20
+                inputHigh = 5
+            if self.y < 600 - 50 - (inputHigh-3)*20:
+                self.y += 4
+            if self.y > 600 - 50 - (inputHigh-3)*20:
+                self.y -= 4
+            
                 
 
 def pulseIn(pin,level,timeOut): # function pulseIn: obtain pulse time of a pin
