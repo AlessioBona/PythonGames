@@ -23,10 +23,10 @@ class Rocket:
             
         def move(self, distance):
             inputHigh = distance
-            if distance > 60:
+            if distance > 55:
                 inputHigh = 60
-            if distance < 10:
-                inputtHigh = 10
+            if distance < 5:
+                inputtHigh = 5
             self.y = 600 - 50 - (inputHigh-10)*10
                 
 
@@ -82,7 +82,7 @@ def loop():
 
     
     while(True):
-        clock.tick(12)
+        clock.tick(24)
         distance = getSonar()
         print ("The distance is : %.2f cm"%(distance))
         rocket.move(distance)
