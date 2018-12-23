@@ -14,6 +14,23 @@ echoPin = 18
 MAX_DISTANCE = 220          #define the maximum measured distance
 timeOut = MAX_DISTANCE*60   #calculate timeout according to the maximum measured distance
 
+class Rocket:
+        def __init__ (self, x = 50, y = 50):
+            self.x = x
+            self.y = y
+            self.moveDown = True
+            self.image = pygame.image.load("rocket.png")
+            
+        def move(self):
+            if self.y == 50:
+                self.moveDown = True
+            if self.moveDown == False:
+                self.y -= 1
+            if self.moveDown == True:
+                self.y += 1
+            if self.y == 600 - 50:
+                self.moveDown = False
+
 def pulseIn(pin,level,timeOut): # function pulseIn: obtain pulse time of a pin
     t0 = time.time()
     while(GPIO.input(pin) != level):
@@ -44,7 +61,8 @@ def setup():
 
 def loop():
     GPIO.setup(11,GPIO.IN)
-
+    print ('How many times?')
+    
     # load and set the logo
     logo = pygame.image.load("logo32x32.png")
     pygame.display.set_icon(logo)
@@ -52,6 +70,10 @@ def loop():
     
     # create a surface on screen that has the size of 240 x 180
     screen = pygame.display.set_mode((800,600))
+
+    rocket = Rocket()
+
+
     
     while(True):
         distance = getSonar()
