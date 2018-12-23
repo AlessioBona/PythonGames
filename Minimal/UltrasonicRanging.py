@@ -85,7 +85,7 @@ def loop():
         clock.tick(12)
         distance = getSonar()
         print ("The distance is : %.2f cm"%(distance))
-        rocket.move()
+        rocket.move(distance)
         drawScene()
 
         #time.sleep(1)
