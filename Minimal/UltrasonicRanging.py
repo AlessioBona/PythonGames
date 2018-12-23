@@ -21,15 +21,14 @@ class Rocket:
             self.moveDown = True
             self.image = pygame.image.load("rocket.png")
             
-        def move(self):
-            if self.y == 50:
-                self.moveDown = True
-            if self.moveDown == False:
-                self.y -= 1
-            if self.moveDown == True:
-                self.y += 1
-            if self.y == 600 - 50:
-                self.moveDown = False
+        def move(self, distance):
+            inputHigh = distance
+            if distance > 60:
+                inputHigh = 60
+            if distance < 10:
+                inputtHigh = 10
+            self.y = 600 - 50 - (inputHigh-10)*10
+                
 
 def pulseIn(pin,level,timeOut): # function pulseIn: obtain pulse time of a pin
     t0 = time.time()
@@ -86,8 +85,9 @@ def loop():
         clock.tick(12)
         distance = getSonar()
         print ("The distance is : %.2f cm"%(distance))
-        drawScene()
         rocket.move()
+        drawScene()
+
         #time.sleep(1)
         
 if __name__ == '__main__':     #program start from here
